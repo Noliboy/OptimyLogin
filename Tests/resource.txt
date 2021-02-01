@@ -1,0 +1,78 @@
+*** Settings ***
+Library     SeleniumLibrary
+
+*** Variables ***
+${url}                      https://login.optimyapp.com/ 
+${browser}                  chrome
+${email}                    name=email
+${password}                 name=password
+${login_button}             class=btn
+${email_error}              //*[@id="tab-login"]/form/div[1]/span
+${password_error}           //*[@id="tab-login"]/form/div[2]/span
+${incorrect_element}        //*[@id="login-invalid"]
+${login_attempts_element}   //*[@id="login-too-many-attempts"]
+
+*** Keywords ***
+Access Login page
+    Set Selenium Speed                  0.3
+    Open Browser                        ${url}                        ${browser}
+    Maximize Browser Window
+
+Enter email value    
+    [Arguments]                         ${email_value}             
+    Input Text                          ${email}                      ${email_value}
+
+Enter password value      
+    [Arguments]                         ${password_value}
+    Input password                      ${password}                   ${password_value}
+
+Delete password value
+    Clear Element Text                  ${password}
+
+Check email error
+    [Arguments]                         ${email_error_message}        
+    Click Button                        ${login_button}             
+    Element Text Should Be              ${email_error}                ${email_error_message}
+    Element Should Not Be Visible       ${password_error}
+
+Check empty fields errors
+    [Arguments]                         ${email_error_message}        ${password_error_message}
+    Click Button                        ${login_button}             
+    Element Text Should Be              ${email_error}                ${email_error_message}
+    Element Text Should Be              ${password_error}             ${password_error_message}
+
+Check empty email field error
+    [Arguments]                         ${email_error_message}        
+    Click Button                        ${login_button}             
+    Element Text Should Be              ${email_error}                ${email_error_message}
+    Element Should Not Be Visible       ${password_error}
+    
+Check empty password field error
+    [Arguments]                         ${password_error_message}
+    Click Button                        ${login_button}             
+    Element Text Should Be              ${password_error}             ${password_error_message}
+    Element Should Not Be Visible       ${email_error}
+
+Check incorrect error
+    [Arguments]                         ${incorrect_error}
+    Click Button                        ${login_button}      
+    Wait Until Element Contains         ${incorrect_element}          ${incorrect_error}              
+    Element Should Not Be Visible       ${email_error}
+    Element Should Not Be Visible       ${password_error}
+
+Check login attempts error
+    [Arguments]                         ${login_attempts_error}
+    Click Button                        ${login_button}    
+    Wait Until Element Is Visible       ${incorrect_element}
+    Click Button                        ${login_button}    
+    Wait Until Element Is Visible       ${incorrect_element}
+    Click Button                        ${login_button}    
+    Wait Until Element Is Visible       ${incorrect_element}
+    Click Button                        ${login_button}    
+    Wait Until Element Is Visible       ${incorrect_element}
+    Click Button                        ${login_button}    
+    Wait Until Element Contains         ${login_attempts_element}     ${login_attempts_error}              
+    Element Should Not Be Visible       ${email_error}
+    Element Should Not Be Visible       ${password_error}
+
+
