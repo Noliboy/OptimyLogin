@@ -1,5 +1,4 @@
 # OptimyLogin
-This is a sample test for login negative scenarios of Optimy login Application
 
 Guide on the installation of Robot Framework and running the test scripts for Optimy login Application.
 
@@ -11,11 +10,11 @@ Guide on the installation of Robot Framework and running the test scripts for Op
 
 4. Use PIP to install robot framework 
 
-  $ pip install robotframework
+			$ pip install robotframework
 
 5. Use PIP to install selenium library
 
-  $ pip install robotframework-seleniumlibrary
+			$ pip install robotframework-seleniumlibrary
   
 6. Download selenium webdrivers for Chrome (https://chromedriver.chromium.org/downloads)
 
@@ -29,5 +28,5 @@ Guide on the installation of Robot Framework and running the test scripts for Op
 
 11. Run the test scripts
   
-  $ robot -d results Tests/login.robot
+			$ robot -d results Tests/login.robot
 
