@@ -24,7 +24,7 @@ Guide on the installation of Robot Framework and running the test scripts for Op
 
 9. Go to the folder and create a [Results] folder
 
-10. Before running the scripts change the testdata of ${email} to any valid email
+10. Before running the script change the testdata of ${valid_email} to any valid email under the login.robot file to avoid failed test results
 
 11. Run the test scripts
   
